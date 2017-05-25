@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Er0pKa/d3-angular#readme",
   "dependencies": {
-    "express": "^4.15.3",
+    "express": "latest",
     "jade": "latest"
   },
   "devDependencies": {
