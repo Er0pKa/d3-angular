@@ -10,8 +10,17 @@ const vinylSource = require('vinyl-source-stream');
 const rename = require('gulp-rename');
 const notify = require('gulp-notify');
 const sourceMaps = require('gulp-sourcemaps');
+const child = require('child_process');
+// const fs = require('fs');
 
-gulp.task('default', ['js', 'css', 'watch']);
+gulp.task('default', ['server', 'js', 'css', 'watch']);
+
+gulp.task('server', function() {
+  var server = child.spawn('node', ['server.js']);
+  // var log = fs.createWriteStream('server.log', {flags: 'a'});
+  // server.stdout.pipe(log);
+  // server.stderr.pipe(log);
+});
 
 gulp.task('css', function() {
   return gulp.src('./assets/css/app.scss')
