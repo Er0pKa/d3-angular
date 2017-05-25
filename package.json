@@ -17,6 +17,19 @@
   },
   "homepage": "https://github.com/Er0pKa/d3-angular#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "jade": "latest"
+  },
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-plumber": "latest",
+    "browserify": "latest",
+    "gulp-sass": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-notify": "latest",
+    "gulp-rename": "latest",
+    "browser-sync": "latest",
+    "vinyl-source-stream": "latest",
+    "gulp-sourcemaps": "latest"
   }
 }
