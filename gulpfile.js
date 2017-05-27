@@ -17,9 +17,9 @@ gulp.task('default', ['server', 'js', 'css', 'watch']);
 
 gulp.task('server', function() {
   var server = child.spawn('node', ['server.js']);
-  // var log = fs.createWriteStream('server.log', {flags: 'a'});
-  // server.stdout.pipe(log);
-  // server.stderr.pipe(log);
+//   // var log = fs.createWriteStream('server.log', {flags: 'a'});
+//   // server.stdout.pipe(log);
+//   // server.stderr.pipe(log);
 });
 
 gulp.task('css', function() {
@@ -40,7 +40,7 @@ gulp.task('css', function() {
 
 gulp.task('js', function() {
   return browserify('./assets/js/bootstrap.js', {debug:true})
-    .bundle().on('error', function errorHandler(error) {
+    .bundle().on('error', function errorHandler() {
       var args = Array.prototype.slice.call(arguments);
       notify.onError('Browserify error: <%= error.message %>').apply(
         this, args);

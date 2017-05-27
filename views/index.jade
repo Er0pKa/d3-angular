@@ -6,5 +6,8 @@ html
 
     title=pageTitle
 
-  body
-    script(src="./build/combined.js")
+  body(data-ng-app="kitApp")
+    #container
+      .kit-editor(data-kit-editor)
+  
+  script(src="./build/combined.js")
