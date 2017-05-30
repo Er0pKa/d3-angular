@@ -9,7 +9,7 @@ angular.module('d3', []).factory('d3Factory', [
       var scriptTag = $document[0].createElement('script');
       scriptTag.async = true;
       scriptTag.type = 'text/Javascript';
-      scriptTag.scr = '../../../vendor/d3/d3.js';
+      scriptTag.src = '../../../vendor/d3/d3.js';
 
       scriptTag.onload = function() {
         $rootScope.$apply(function() {d.resolve($window.d3);})
