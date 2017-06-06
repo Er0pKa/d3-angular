@@ -58,7 +58,7 @@ module.exports = ['d3Factory', function(d3Factory) {
           .attr('width', 0)
           .attr('height', 0);
 
-        var DURATION = 8010;
+        var DURATION = 800;
 
         var pageWidth = $scope.editor.features.pixelsPerMm * $scope.editor.pageProperties.widthMm;
         var pageHeight = $scope.editor.features.pixelsPerMm * $scope.editor.pageProperties.heightMm;
@@ -103,7 +103,7 @@ module.exports = ['d3Factory', function(d3Factory) {
               return d;
             });
 
-            console.log($scope.editor.behavior.d3);
+            // console.log($scope.editor.behavior.d3);
 
             $scope.editor.behavior.d3 = {
               zoom: d3.behavior.zoom()

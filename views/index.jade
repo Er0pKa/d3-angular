@@ -9,5 +9,7 @@ html
   body(data-ng-app="kitApp")
     #container
       .kit-editor(data-kit-editor)
+        .center-button
+          button(value = 'center' ng-click='centerButton()')
   
   script(src="./build/combined.js")
