@@ -24,3 +24,18 @@ svg {
     pointer-events: all;
   }
 }
+
+.kit-editor button {
+  background: gray;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+  padding: 2px;
+  border: none;
+}

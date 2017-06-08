@@ -10,6 +10,6 @@ html
     #container
       .kit-editor(data-kit-editor)
         .center-button
-          button(value = 'center' ng-click='centerButton()')
-  
+          button(data-ng-click="center()" ng-bind="editor.testValue | uppercase") C
+
   script(src="./build/combined.js")
