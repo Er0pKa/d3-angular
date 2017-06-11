@@ -1,9 +1,9 @@
-module.exports = ['d3Factory', '$window', function(d3Factory, $window) {
+module.exports = ['d3Factory', '$window', '$q', function(d3Factory, $window, $q) {
   return {
     scope: true,
     restrict: 'A',
     link: function($scope, $element, $attrs) {
-      d3Factory.d3().then(function(d3) {
+      d3Factory.then(function(d3) {
         $scope.editor = {
           testValue: 'c',
           behavior: {
@@ -131,23 +131,33 @@ module.exports = ['d3Factory', '$window', function(d3Factory, $window) {
              * @returns {Promise}
              */
             $scope.translateTo = function(pt) {
-              d3.transition('translateTo')
-                .duration(DURATION)
-                .tween('translateTo', function() {
-                  //step(0)[0] -> $scope.editor.position.x
-                  //step(0)[1] -> $scope.editor.position.y
-                  //step(1)[0] -> pt.x
-                  //step(1)[1] -> pt.y
-                  var step = d3.interpolate(
-                      [$scope.editor.position.x, $scope.editor.position.x,],
-                      [pt.x, pt.y]
-                    )
-                  // t - нормализованный интервал [0, 1]
-                  return function(t) {
-                    
-                  }
-                })
+              return $q(function(resolve, reject) {
+                d3.transition('translateTo')
+                  .duration(DURATION)
+                  .tween('translateTo', function() {
+                    //step(0)[0] -> $scope.editor.position.x
+                    //step(0)[1] -> $scope.editor.position.y
+                    //step(1)[0] -> pt.x
+                    //step(1)[1] -> pt.y
+                    var step = d3.interpolate(
+                        [$scope.editor.position.x, $scope.editor.position.x,],
+                        [pt.x, pt.y]
+                      );
 
+                      function translateToInternal(x, y) {
+                        $scope.editor.behavior.d3.zoom.translate([x, y]);
+                        $scope.editor.behavior.d3.zoom.event($scope.editor.svg.container);
+                        $scope.editor.position.x = x;
+                        $scope.editor.position.y = y;
+                      }
+                    
+                    return function(t) {  // t - нормализованный интервал [0, 1]
+                      translateToInternal(step(t)[0], step(t)[1]);
+                    }
+                  }).each('end', function() {
+                    resolve('Translated to (' + pt.x + ';' + pt.y + ') successfully')
+                });
+              });              
             };
 
             $scope.center = function($event) {
@@ -163,6 +173,10 @@ module.exports = ['d3Factory', '$window', function(d3Factory, $window) {
               
               return $scope.translateTo(center);
             };
+
+            $scope.center().then(function(result) {
+              console.log(result);
+            });
 
       });
     }
