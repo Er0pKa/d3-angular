@@ -1,4 +1,8 @@
-module.exports = ['d3Factory', '$window', '$q', function(d3Factory, $window, $q) {
+module.exports = ['d3Factory',
+  '$window',
+  '$q',
+  '$compile',
+  function(d3Factory, $window, $q, $compile) {
   return {
     scope: true,
     restrict: 'A',
@@ -174,9 +178,13 @@ module.exports = ['d3Factory', '$window', '$q', function(d3Factory, $window, $q)
               return $scope.translateTo(center);
             };
 
-            $scope.center().then(function(result) {
-              console.log(result);
-            });
+            // $scope.center().then(function(result) {
+            //   console.log(result);
+            // });
+
+            $compile(angular.element($scope.editor.svg.container.append('g')  //angular.element -native -> angular
+              .attr('transform', 'translate(0, 0)')
+              .attr('data-kit-custom-shape', '').node()))($scope);  //node() - d3 -> native
 
       });
     }
