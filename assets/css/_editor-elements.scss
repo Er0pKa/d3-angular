@@ -1,5 +1,5 @@
-g [data-kit-custom-shape] {
-
+g [data-kit-custom-shape], g [data-kit-custom-shape] path {
+  fill-rule: evenodd;
 }
 
 g [data-kit-rect] {
@@ -11,8 +11,16 @@ g [data-kit-rect] {
 
 g [data-kit-t-shape] {
   fill:green;
-  fill-rule: evenodd;
+  
   stroke: #000;
   stroke-width: 1.5;
 }
 
+g [data-kit-gear] {
+  .gear{
+    fill-opacity: .85;
+    stroke: gray;
+    stroke-opacity: .25;
+  }
+
+}

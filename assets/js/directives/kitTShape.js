@@ -5,7 +5,7 @@ module.exports = ['d3Factory', function(d3Factory) {
     priority: 1,
     link: function($scope, $element, $attrs) {
       d3Factory.then(function(d3) { 
-        $scope.shape.moniker = 'core.t';
+        $scope.shape.moniker = 'core.tshape';
 
         function drawTShape(d3, holder, pixelsPerMm, holeRadius, hHoleCount, vHoleCount) {
 
@@ -53,7 +53,7 @@ module.exports = ['d3Factory', function(d3Factory) {
 
             vHoleCount = (verticalLenght - 20) / stepH;
 
-            for (var j = 0; j < vHoleCount; j++) {              
+            for ( j = 0; j < vHoleCount; j++) {              
               pathString += 'M' + (verticalPosition + borderRadius) + ',' +
                 (borderRadius / 2 + j * stepV) +
                 'a' + holeRadius + ',' + holeRadius + ' 0 0 1 0 ' + ',' + (2 * holeRadius) +

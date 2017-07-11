@@ -89,6 +89,16 @@ module.exports = ['d3Factory', function(d3Factory) {
 
           $scope.shape.svg.d3Object.call( $scope.shape.dragBehavior.dragObject );
 
+          var t = d3.transform($scope.shape.svg.d3Object.attr('transform'));
+          var tSnapped = $scope.snapToGrid({
+            x: t.translate[0],
+            y: t.translate[1]            
+          }, $scope.shape.dragBehavior.snapFactor);
+
+          $scope.setDragOrigin(tSnapped.x, tSnapped.y);
+
+          $scope.shape.svg.d3Object.attr('transform', 'translate(' +
+            tSnapped.x + ',' + tSnapped.y + ')');
       })
     }
   }
