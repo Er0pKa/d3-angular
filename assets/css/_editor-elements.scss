@@ -23,4 +23,24 @@ g [data-kit-gear] {
     stroke-opacity: .25;
   }
 
+  .gear-inner-circle{
+    fill: #f50500;
+    stroke: gray;
+  }
+
+  .gear-outer-circle{
+    fill: #dd0903;
+  }
+
+}
+
+.screw {
+  &.outer-hex {
+    fill: grey;
+    fill-opacity: .85;
+  }
+  &.inner-hex {
+    fill: #000;
+    fill-opacity: .85;
+  }
 }

@@ -192,10 +192,20 @@ module.exports = ['d3Factory',
             //   .attr('data-kit-custom-shape', '')  
             //   .attr('data-kit-t-shape', '').node()))($scope);  //node() - d3 -> native
 
+            // $compile(angular.element($scope.editor.svg.container.append('g')  //angular.element -native -> angular
+            //   .attr('transform', 'translate(100, 100)')
+            //   .attr('data-kit-custom-shape', '')  
+            //   .attr('data-kit-gear', '').node()))($scope);  //node() - d3 -> native
+
+            // $compile(angular.element($scope.editor.svg.container.append('g')  //angular.element -native -> angular
+            //   .attr('transform', 'translate(100, 100)')
+            //   .attr('data-kit-custom-shape', '')  
+            //   .attr('data-kit-screw', '').node()))($scope);  //node() - d3 -> native
+
             $compile(angular.element($scope.editor.svg.container.append('g')  //angular.element -native -> angular
-              .attr('transform', 'translate(100, 100)')
+              .attr('transform', 'translate(550, 450)')
               .attr('data-kit-custom-shape', '')  
-              .attr('data-kit-gear', '').node()))($scope);  //node() - d3 -> native
+              .attr('data-kit-triangle', '').node()))($scope);  //node() - d3 -> native
 
       });
     }

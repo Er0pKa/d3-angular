@@ -3,4 +3,6 @@ angular.module('kitApp.directives', [])
   .directive('kitRect', require('../directives/kitRect'))
   .directive('kitTShape', require('../directives/kitTShape'))
   .directive('kitGear', require('../directives/kitGear'))
+  .directive('kitScrew', require('../directives/kitScrew'))
+  .directive('kitTriangle', require('../directives/kitTriangle'))
   .directive('kitEditor', require('../directives/kitEditor'));

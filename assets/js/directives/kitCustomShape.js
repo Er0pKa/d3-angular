@@ -4,7 +4,7 @@ module.exports = ['d3Factory', function(d3Factory) {
     restrict: 'A',
     priority: 0,
     link: function($scope, $element, $attrs) {
-      d3Factory.then(function(d3) {        
+      d3Factory.then(function(d3) {     
         //Drag
         $scope.shape = {
           dragBehavior: {
@@ -99,6 +99,11 @@ module.exports = ['d3Factory', function(d3Factory) {
 
           $scope.shape.svg.d3Object.attr('transform', 'translate(' +
             tSnapped.x + ',' + tSnapped.y + ')');
+
+          $scope.bringToFront = function() {
+            $scope.shape.svg.rootNode.parentNode.appendchild(
+              $scope.shape.svg.rootNode);
+          };
       })
     }
   }
