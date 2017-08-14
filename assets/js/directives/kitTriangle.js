@@ -16,8 +16,11 @@ module.exports = ['d3Factory', function(d3Factory) {
               var vDirection = Math.abs(height)/height;
               var hDirection = Math.abs(width)/width;
               var angle = Math.atan(width/height);
-              var rotation = (vDirection == hDirection) ? 0 : 1;
-              var pathString = ['M ', -borderRadius *(1 + Math.cos(angle)), ', ', borderRadius * (Math.sin(angle))];
+              var rotation = (vDirection == hDirection) ? 0 : 1;              
+              var pathString = [];
+
+              var pathString = ['M ', vDirection * borderRadius *(1 + Math.cos(angle)), ', ',
+                  -hDirection * borderRadius * (Math.sin(angle))];
 
               console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
 
@@ -29,16 +32,26 @@ module.exports = ['d3Factory', function(d3Factory) {
                 hDirection * -(borderRadius *(1 + Math.cos(angle))), ',',          //x coord
                 vDirection * (borderRadius * (Math.sin(angle))),               //y coord
 
-                ' v', height - 2 * borderRadius,
+                ' v', height + 2 * borderRadius * vDirection,
                 ' a', borderRadius, ',', borderRadius, ' 0 0,', rotation,
                 borderRadius * hDirection, ',', borderRadius * vDirection,
-                ' h', (width - 2 * borderRadius),
+                ' h', width + 2 * borderRadius * hDirection,
 
                 ' a', borderRadius, ',', borderRadius, ' 0 0,', rotation,
                 hDirection * (borderRadius * Math.cos(angle)), ',',          //x coord
                 vDirection * -(borderRadius * ( 1 + Math.sin(angle)))               //y coord
              
               );
+
+              for (var j = 0; j < vHoleCount; j++) {
+                for (var i = 0; i < hHoleCount; i++) {
+                  pathString += 'M' + (i * borderRadius + borderRadius / 2) + ',' +
+                    (height - borderRadius + j * borderRadius + borderRadius / 2 - holeRadius) +
+                    'a' + holeRadius + ',' + holeRadius + ' 0 0 1 0 ' + ',' + (2 * holeRadius) +
+                    'a' + holeRadius + ',' + holeRadius + ' 0 0 1 0 ' + ',' + -(2 * holeRadius) +
+                    'z';
+                }
+              }
 
               console.log(pathString.join(''));
               return pathString.join('');
