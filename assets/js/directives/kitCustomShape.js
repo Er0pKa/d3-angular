@@ -104,6 +104,37 @@ module.exports = ['d3Factory', function(d3Factory) {
             $scope.shape.svg.rootNode.parentNode.appendchild(
               $scope.shape.svg.rootNode);
           };
+          
+          $scope.doSingleRotation = function () {
+            if (!$scope.shape.svg.d3Object.node().hasAttribute('data-kit-gear') &&
+              !$scope.shape.svg.d3Object.node().hasAttribute('data-kit-screw')) {
+                var path = $scope.shape.svg.d3Object.selectAll('path');
+                var oldRotation = d3.transform(path.attr('transform'));
+                var bBox = $scope.shape.svg.d3Object.node().getBBox();
+                var centroid = [bBox.x + bBox.width / 2, bBox.y + bBox.height /2];
+
+                path.attr('transform', 'rotate(' + (oldRotation.rotate + 90) + ',' + centroid[0] +
+                  ',' + centroid[1] + ')');
+              }
+          };
+
+          $scope.shape.svg.d3Object.on('mousedown', function () {
+            var e = d3.event;
+
+            if ( e.button === 0 && e.shiftKey ) {
+              //[0, 1] * 9 -> [0, 9]
+              d3.select(this).selectAll('path').style('fill', colors(Math.random() * 9 ));
+            } else if ( e.altKey ){
+              $element.remove();
+              $element.destroy();
+            } else if ( e.button === 1 ) {
+              $scope.doSingleRotation();
+            }
+          });
+
+          $scope.shape.svg.d3Object.on('dblclick', function () {
+            d3.event.stopPropagation();
+          })
       })
     }
   }
