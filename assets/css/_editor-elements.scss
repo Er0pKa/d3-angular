@@ -4,15 +4,19 @@ g [data-kit-custom-shape], g [data-kit-custom-shape] path {
 
 g [data-kit-rect] {
   fill:orange;
-  fill-rule: evenodd;
   stroke: #000;
   stroke-width: 1.5;
 }
 
 g [data-kit-t-shape] {
-  fill:green;
-  
+  fill:green;  
   stroke: #000;
+  stroke-width: 1.5;
+}
+
+g [data-kit-triangle] {
+  fill:rgb(195, 196, 199);  
+  stroke: rgb(231, 60, 60);
   stroke-width: 1.5;
 }
 
