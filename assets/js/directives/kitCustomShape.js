@@ -43,7 +43,6 @@ module.exports = ['d3Factory', function(d3Factory) {
               y: Math.round(coords.y / b) * b
             }
           };
-
           $scope.moveTo = function(x, y, shouldSnap) {
             $scope.setDragOrigin(x, y);
             var coords = {
@@ -69,8 +68,10 @@ module.exports = ['d3Factory', function(d3Factory) {
 
             e.stopPropagation();
             if (e.which === 1 || e instanceof TouchEvent) {
+              $scope.bringToFront();
               dragInitiated = true;
               $scope.editor.behavior.dragging = true;
+              $scope.shape.svg.d3Object.classed('dragging', true);
             }
           })
           .on('drag', function(){
@@ -85,6 +86,7 @@ module.exports = ['d3Factory', function(d3Factory) {
           .on('dragend', function(){
             dragInitiated = false;
             $scope.editor.behavior.dragging = true;
+            $scope.shape.svg.d3Object.classed('dragging', false);
           });
 
           $scope.shape.svg.d3Object.call( $scope.shape.dragBehavior.dragObject );
@@ -101,7 +103,7 @@ module.exports = ['d3Factory', function(d3Factory) {
             tSnapped.x + ',' + tSnapped.y + ')');
 
           $scope.bringToFront = function() {
-            $scope.shape.svg.rootNode.parentNode.appendchild(
+            $scope.shape.svg.rootNode.parentNode.appendChild(
               $scope.shape.svg.rootNode);
           };
           
@@ -117,6 +119,8 @@ module.exports = ['d3Factory', function(d3Factory) {
                   ',' + centroid[1] + ')');
               }
           };
+
+          var colors = d3.scale.category10().domain(d3.range(10));
 
           $scope.shape.svg.d3Object.on('mousedown', function () {
             var e = d3.event;
