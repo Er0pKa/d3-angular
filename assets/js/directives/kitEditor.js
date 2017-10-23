@@ -164,6 +164,10 @@ module.exports = ['d3Factory',
               });              
             };
 
+            $scope.toggleCollapsed = function () {
+              $element.toggleClass('collapsed');
+            };
+
             $scope.center = function($event) {
               var scale = $scope.editor.behavior.d3.zoom.scale();
               var editorWidth =  $scope.editor.features.pixelsPerMm *
