@@ -1,7 +1,7 @@
 module.exports - function () {
   return {
     
-    drawGearWheel: function (d3, holder, pixelsPerMm, teeth, radiusInner, radousOuter, toothHeight,
+    drawGearWheel: function (d3, holder, pixelsPerMm, teeth, radiusInner, radiusOuter, toothHeight,
                               innerAnnulus, outerAnnulus) {    
       function drawGear(teeth, radiusInner, radiusOuter, toothHeight) {
         var rOuter = Math.abs(radiusOuter);
@@ -114,7 +114,7 @@ module.exports - function () {
       var pathString = ['M ', vDirection * borderRadius *(1 + Math.cos(angle)), ', ',
           -hDirection * borderRadius * (Math.sin(angle))];
 
-      console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
+      // console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
 
       pathString.push(
 
@@ -163,7 +163,7 @@ module.exports - function () {
         var verticalLenght = (5 + verticalHoles * 10) * pixelsPerMm;
 
         // pathString += 'M0,0L100,100L200,0';
-        positionHeight = verticalLenght + height - borderRadius;
+        var positionHeight = verticalLenght + height - borderRadius;
 
         pathString += 'M' + borderRadius + ',' + positionHeight + // M18.897637128829956,37.79527425765991a
           'a' + borderRadius + ',' + borderRadius + ' 0 0 1 ' + -borderRadius + ',' + -borderRadius +
