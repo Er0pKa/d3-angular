@@ -29,36 +29,40 @@ module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', '$http',
 													d3.select(this).attr('data-moniker'));
 											});
 
-											var svg = thumbnail.append('svg')
-												.attr('width', '100')
-												.attr('height', '100');
+                    var svg = thumbnail.append('svg')
+                      .attr('width', '100')
+                      .attr('height', '100');
 
-											var holder = svg.append('g');
+                    var holder = svg.append('g');
 
-											if (elementList[moniker][iii].length > 0) {
-												method.apply(this, d3.merge(
-													[
-														[d3, holder, $scope.editor.features.pixelsPerMm],
-														elementList[moniker][iii]
-													]
-												));
+                    if (elementList[moniker][iii].length > 0) {
+                      method.apply(this, d3.merge(
+                        [
+                          [d3, holder, $scope.editor.features.pixelsPerMm],
+                          elementList[moniker][iii]
+                        ]
+                      ));
 
-												var bBox = holder.node().getBBox();
+                      var bBox = holder.node().getBBox();
 
-												var offset = [
-													thumbnail.node().offsetWidth / 2
-													 - (bBox.width + 2 * bBox.x) / 2,
-													thumbnail.node().offsetHeight / 2
-													- (bBox.width + 2 * bBox.x) / 2,
-												]
-											}
+                      var offset = [
+                        thumbnail.node().offsetWidth / 2
+                          - (bBox.width + 2 * bBox.x) / 2,
+                        thumbnail.node().offsetHeight / 2
+                        - (bBox.width + 2 * bBox.x) / 2,
+                      ];
+                      
+                      holder.attr('transform', 'translate(' + offset + ')');
+                    }
 									}
 								}
 							}
 						}
-					})
-				})
+					}, function errorCallback(response) {
+            console.log(response);
+          });
+				});
 			}
-		}		
+		}
 	}
 ]

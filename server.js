@@ -3,6 +3,7 @@ class Server {
     this.express = require('express');
     this.app = this.express();
     this.clientRouter = this.express.Router();
+    this.apiRouter = this.express.Router();
 
     this.app.disable('x-powered-by');
     this.app.set('view engine', 'jade');

@@ -13,6 +13,8 @@ module.exports - function () {
         var s = step / 3;
         var pathString = ['M0', rOuter * Math.sin(a0)];
 
+        console.log('drawGear');
+
         while (++i < teeth) {
           pathString.push('A', rOuter, ',', rOuter, ' 0 0 1 ',
             rOuter * Math.cos(a0 += step), ',', rOuter * Math.sin(a0),
@@ -163,7 +165,7 @@ module.exports - function () {
         var verticalLenght = (5 + verticalHoles * 10) * pixelsPerMm;
 
         // pathString += 'M0,0L100,100L200,0';
-        positionHeight = verticalLenght + height - borderRadius;
+        var positionHeight = verticalLenght + height - borderRadius;
 
         pathString += 'M' + borderRadius + ',' + positionHeight + // M18.897637128829956,37.79527425765991a
           'a' + borderRadius + ',' + borderRadius + ' 0 0 1 ' + -borderRadius + ',' + -borderRadius +
