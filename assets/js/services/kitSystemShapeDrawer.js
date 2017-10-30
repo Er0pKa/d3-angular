@@ -1,8 +1,7 @@
-module.exports - function () {
+module.exports = function () {
   return {
-    
-    drawGearWheel: function (d3, holder, pixelsPerMm, teeth, radiusInner, radousOuter, toothHeight,
-                              innerAnnulus, outerAnnulus) {    
+    drawGearWheel: function (d3, holder, pixelsPerMm, teeth, radiusInner, radiusOuter, toothHeight,
+                              innerAnnulus, outerAnnulus) {
       function drawGear(teeth, radiusInner, radiusOuter, toothHeight) {
         var rOuter = Math.abs(radiusOuter);
         var rInner = Math.abs(radiusInner);
@@ -61,7 +60,7 @@ module.exports - function () {
         .attr('d', drawGear( teeth,
         radiusInner * pixelsPerMm,
         radiusOuter * pixelsPerMm,
-        toothHeight * pixelsPerMm ));
+        toothHeight * pixelsPerMm ));        
     },
 
     drawRect: function(d3, holder, pixelsPerMm, holeRadius, hHoleCount, vHoleCount) {            
@@ -72,7 +71,6 @@ module.exports - function () {
         var pathString = '';
         var stepH = width / hHoleCount;
         var stepV = height / vHoleCount;
-
 
         // pathString += 'M0,0L100,100L200,0';
         pathString += 'M' + borderRadius + ',' + height +
@@ -103,52 +101,63 @@ module.exports - function () {
 
     },
 
-    drawTriangle: function (holeRadius, hHoleCount, vHoleCount) {
-      var borderRadius = 2 * holeRadius;
-      var width = borderRadius * hHoleCount;
-      var height = borderRadius * vHoleCount;
-      var vDirection = Math.abs(height)/height;
-      var hDirection = Math.abs(width)/width;
-      var angle = Math.atan(width/height);
-      var rotation = (vDirection == hDirection) ? 0 : 1;              
-      var pathString = [];
+    drawTriangle: function (d3, holder, pixelsPerMm,
+      holeRadius, hHoleCount, vHoleCount) {
+        
+        function drawTriangleWithHoles(holeRadius, hHoleCount, vHoleCount) {
+          var borderRadius = 2 * holeRadius;
+          var width = 2 * borderRadius * hHoleCount;
+          var height = 2 * borderRadius * vHoleCount;
+          var angle = Math.atan(width/height);              
+          var pathString = [];
+          // console.log(typeof(pathString));
+          
+          var pathString = ['M ', borderRadius *(1 + Math.cos(angle)), ', ',
+              borderRadius * (Math.sin(angle))];
 
-      var pathString = ['M ', vDirection * borderRadius *(1 + Math.cos(angle)), ', ',
-          -hDirection * borderRadius * (Math.sin(angle))];
+          // console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
+          pathString.push(
+            //a xradius, yradius, x-axis-rotation large-arc-flag sweep-flag x y
 
-      console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
+            ' a', borderRadius, ',', borderRadius, ' 0 0 0,', 
+             (borderRadius * (1 + Math.cos(angle))), ', ',          //x coord
+             -(borderRadius * (Math.sin(angle))),               //y coord
 
-      pathString.push(
+            ' v', -height + 2 * borderRadius,
+            ' a', borderRadius, ', ', borderRadius, ' 0 0 0,',
+            -borderRadius, ', ', -borderRadius,
+            ' h', -width + 2 * borderRadius,
 
-        //a xradius, yradius, x-axis-rotation large-arc-flag sweep-flag x y
+            ' a', borderRadius, ',', borderRadius, ' 0 0 0,',
+            -(borderRadius * Math.cos(angle)), ',',          //x coord
+            (borderRadius * ( 1 + Math.sin(angle))), ' z'               //y coord 
 
-        ' a', borderRadius, ',', borderRadius, ' 0 0,', rotation,
-        hDirection * -(borderRadius *(1 + Math.cos(angle))), ',',          //x coord
-        vDirection * (borderRadius * (Math.sin(angle))),               //y coord
 
-        ' v', height + 2 * borderRadius * vDirection,
-        ' a', borderRadius, ',', borderRadius, ' 0 0,', rotation,
-        borderRadius * hDirection, ',', borderRadius * vDirection,
-        ' h', width + 2 * borderRadius * hDirection,
+          // console.log(angle, borderRadius, width, height, pixelsPerMm);
 
-        ' a', borderRadius, ',', borderRadius, ' 0 0,', rotation,
-        hDirection * (borderRadius * Math.cos(angle)), ',',          //x coord
-        vDirection * -(borderRadius * ( 1 + Math.sin(angle)))               //y coord
-      
-      );
+          
 
-      for (var j = 0; j < vHoleCount; j++) {
-        for (var i = 0; i < hHoleCount; i++) {
-          pathString += 'M' + (i * borderRadius + borderRadius / 2) + ',' +
-            (height - borderRadius + j * borderRadius + borderRadius / 2 - holeRadius) +
-            'a' + holeRadius + ',' + holeRadius + ' 0 0 1 0 ' + ',' + (2 * holeRadius) +
-            'a' + holeRadius + ',' + holeRadius + ' 0 0 1 0 ' + ',' + -(2 * holeRadius) +
-            'z';
+          );
+          // console.log(pathString.join(''));
+
+          for (var i = 0; i < hHoleCount; i++) {  //vertical
+            for (var j = i; j < vHoleCount; j++) {  //horizontal
+              pathString.push( 'M' + ( 5 * holeRadius - i * 2 * borderRadius ) + ', ' +
+                ( -holeRadius - j * 2 * borderRadius) +
+                ' a' + holeRadius + ', ' + holeRadius + ' 0 0 1 0 ' + ', ' + (2 * holeRadius) +
+                ' a' + holeRadius + ', ' + holeRadius + ' 0 0 1 0 ' + ', ' + -(2 * holeRadius) +
+                ' z ');
+            }
+          }
+          // console.log(pathString);
+          // console.log(typeof(pathString));
+          // console.log(pathString.join(''));
+          return pathString.join('');
         }
-      }
-
-      console.log(pathString.join(''));
-      return pathString.join('');
+        
+        return holder.append('path')
+                .attr('class', 'triangle')
+                .attr('d', drawTriangleWithHoles( holeRadius * pixelsPerMm, hHoleCount, vHoleCount));
     },
 
     drawTShape: function (d3, holder, pixelsPerMm, holeRadius, hHoleCount, vHoleCount) {

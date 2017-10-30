@@ -1,4 +1,4 @@
-module.exports = ['d3Factory', function(d3Factory) {
+module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', function(d3Factory, drawer) {
   return {
     scope: true,
     restrict: 'A',
@@ -6,6 +6,8 @@ module.exports = ['d3Factory', function(d3Factory) {
     link: function($scope, $element, $attrs) {
       d3Factory.then(function (d3) {
         $scope.shape.moniker = 'core.screw';
+
+        /*
         function drawTriangle(d3, holder, pixelsPerMm,
           holeRadius, hHoleCount, vHoleCount) {
             
@@ -61,7 +63,9 @@ module.exports = ['d3Factory', function(d3Factory) {
                     .attr('class', 'triangle')
                     .attr('d', drawTriangleWithHoles( holeRadius * pixelsPerMm, hHoleCount, vHoleCount));
           }
-          $scope.shape.svg.shapeObject = drawTriangle(d3, $scope.shape.svg.d3Object,
+          */
+
+          $scope.shape.svg.shapeObject = drawer.drawTriangle(d3, $scope.shape.svg.d3Object,
             $scope.editor.features.pixelsPerMm, 2.5, 4, 4);
       });
     }

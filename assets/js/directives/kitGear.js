@@ -1,4 +1,4 @@
-module.exports = ['d3Factory', function(d3Factory) {
+module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', function(d3Factory, drawer) {
   return {
     scope: true,
     restrict: 'A',
@@ -6,21 +6,24 @@ module.exports = ['d3Factory', function(d3Factory) {
     link: function($scope, $element, $attrs) {
       d3Factory.then(function(d3) { 
         $scope.shape.moniker = 'core.gear';
-        /**
-         * 
-         * @param {*} d3 
-         * @param {*} holder 
-         * @param {*} pixelsPerMm 
-         * @param {*} radiusInner 
-         * @param {*} radiusOuter 
-         * @param {*} toothHeight 
-         * @param {*} innerAnnulus - внутреннее кольцо
-         * @param {*} outerAnnulus - внешннее кольцо
-         * @param {*} innerAnnulus.innerRadius - внутренний радуис внутреннего кольца
-         * @param {*} innerAnnulus.outerRadius - внешний радуис внутреннего кольца
-         * @param {*} outerAnnulus.innerRadius - внутренний радиус внешнего кольца
-         * @param {*} outerAnnulus.outerRadius - внешний радуис внутреннего кольца
-         */
+
+        
+        // /**
+        //  * 
+        //  * @param {*} d3 
+        //  * @param {*} holder 
+        //  * @param {*} pixelsPerMm 
+        //  * @param {*} radiusInner 
+        //  * @param {*} radiusOuter 
+        //  * @param {*} toothHeight 
+        //  * @param {*} innerAnnulus - внутреннее кольцо
+        //  * @param {*} outerAnnulus - внешннее кольцо
+        //  * @param {*} innerAnnulus.innerRadius - внутренний радуис внутреннего кольца
+        //  * @param {*} innerAnnulus.outerRadius - внешний радуис внутреннего кольца
+        //  * @param {*} outerAnnulus.innerRadius - внутренний радиус внешнего кольца
+        //  * @param {*} outerAnnulus.outerRadius - внешний радуис внутреннего кольца
+        //  */
+        /*
           function drawGearWheel(d3, holder, pixelsPerMm, teeth,
                    radiusInner, radiusOuter, toothHeight, innerAnnulus, outerAnnulus) {
 
@@ -82,8 +85,8 @@ module.exports = ['d3Factory', function(d3Factory) {
               radiusOuter * pixelsPerMm,
               toothHeight * pixelsPerMm ));
           }
-
-          $scope.shape.svg.gear = drawGearWheel(d3,
+          */
+          $scope.shape.svg.gear = drawer.drawGearWheel(d3,
             $scope.shape.svg.d3Object,
             $scope.editor.features.pixelsPerMm,
             8, 5, 9, 2, {
@@ -102,6 +105,7 @@ module.exports = ['d3Factory', function(d3Factory) {
               'rotate(' + (Date.now() - start) * speed + ')')
               
             })
+            
       });
     }
   }

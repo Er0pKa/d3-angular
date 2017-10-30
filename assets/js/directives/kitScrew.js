@@ -1,4 +1,4 @@
-module.exports = ['d3Factory', function(d3Factory) {
+module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', function(d3Factory, drawer) {
   return {
     scope: true,
     restrict: 'A',
@@ -6,7 +6,7 @@ module.exports = ['d3Factory', function(d3Factory) {
     link: function($scope, $element, $attrs) {
       d3Factory.then(function (d3) {
         $scope.shape.moniker = 'core.screw';
-        console.log('working');
+       /*
         function drawScrew(d3, holder, pixelsPerMm,
           outerHexSize, innerHexSize) {
             function hexagon (size) {
@@ -32,8 +32,9 @@ module.exports = ['d3Factory', function(d3Factory) {
 
             
           }
-          $scope.shape.svg.shapeObject = drawScrew(d3, $scope.shape.svg.d3Object,
-            $scope.editor.features.pixelsPerMm, 4, 2);
+          */
+          $scope.shape.svg.shapeObject = drawer.drawScrew(d3, $scope.shape.svg.d3Object,
+            $scope.editor.features.pixelsPerMm, 4, 2);            
       });
     }
   }
