@@ -1,4 +1,4 @@
-module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', '$http',
+module.exports = ['d3Factory', 'kitSystemShapeDrawerFactory', function(d3Factory, drawer) {
   function(d3Factory, drawer, $http) {
     //DDO - Directive Definition Object
     return {

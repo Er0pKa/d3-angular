@@ -115,8 +115,10 @@ module.exports = function () {
           var pathString = ['M ', borderRadius *(1 + Math.cos(angle)), ', ',
               borderRadius * (Math.sin(angle))];
 
-          // console.log(vDirection, hDirection, angle, rotation, borderRadius, width, height, pixelsPerMm);
+          // console.log(angle, borderRadius, width, height, pixelsPerMm);
+
           pathString.push(
+
             //a xradius, yradius, x-axis-rotation large-arc-flag sweep-flag x y
 
             ' a', borderRadius, ',', borderRadius, ' 0 0 0,', 
@@ -131,11 +133,6 @@ module.exports = function () {
             ' a', borderRadius, ',', borderRadius, ' 0 0 0,',
             -(borderRadius * Math.cos(angle)), ',',          //x coord
             (borderRadius * ( 1 + Math.sin(angle))), ' z'               //y coord 
-
-
-          // console.log(angle, borderRadius, width, height, pixelsPerMm);
-
-          
 
           );
           // console.log(pathString.join(''));
